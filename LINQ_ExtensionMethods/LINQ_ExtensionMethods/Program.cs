@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Extensions;
 namespace LINQ_ExtensionMethods
 {
     class Program
@@ -11,32 +11,43 @@ namespace LINQ_ExtensionMethods
         static void Main(string[] args)
         {
             IEnumerable<string> cities = new[] { "Ghent", "London", "Las Vegas", "Hyderabad" };
-            IEnumerable<string> query = cities.Filter(StringThatStartWithL);
-                foreach( var city in cities)
+            IEnumerable<string> query = cities.StringsThatStartWith("L");
+            foreach (var city in cities)
             {
                 Console.WriteLine(city);
             }
-        }
-        static bool StringThatStartWithL( string s)
-        {
-            return s.StartsWith("L");
+            DateTime date = new DateTime(2002, 8, 9);
+            int daysTillEndOfMonth = date.DaysToEndOfMonth();
+            Console.WriteLine(daysTillEndOfMonth);
+            Console.ReadKey();
         }
     }
-}
+    //static bool StringThatStartWithL(string s)
+    //{
+    //    return s.StartsWith("L");
+    //}
+
+    public static class DateUtilities
+        {
+            public static int DaysToEndOfMonth(this DateTime date)
+            {
+                return DateTime.DaysInMonth(date.Year, date.Month) - date.Day;
+            }
+        }
+    }
+
+
 namespace Extensions
 {
     public static class FilterExtensions
     {
-        public static IEnumerable<T> Filter<T>
-            (
-            this IEnumerable<T> input, FilterDelegate<T> predicate)
+       public static IEnumerable<string> StringsThatStartWith (this IEnumerable<string> input , string start)
         {
-            foreach(var item in input)
+            foreach(var s in input)
             {
-                if (predicate(item))
+                if (s.StartsWith(start))
                 {
-                    yield return item;
-
+                    yield return s;
                 }
             }
         }
