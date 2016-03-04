@@ -13,10 +13,12 @@ namespace ConsoleHost
         static void Main(string[] args)
         {
             ServiceHost host = new ServiceHost(typeof(EvalService));
-            host.AddServiceEndpoint(typeof(IEvalService), new BasicHttpBinding(), "http://localhost:8080/evals/basic");
-            host.AddServiceEndpoint(typeof(IEvalService), new WSHttpBinding(), "http://localhost:8080/evals/ws");
-            host.AddServiceEndpoint(typeof(IEvalService), new NetTcpBinding(), "net.tcp://localhost:8082/evals");
+            //Defining Service points in Code
+            //host.AddServiceEndpoint(typeof(IEvalService), new BasicHttpBinding(), "http://localhost:8080/evals/basic");
+            //host.AddServiceEndpoint(typeof(IEvalService), new WSHttpBinding(), "http://localhost:8080/evals/ws");
+            //host.AddServiceEndpoint(typeof(IEvalService), new NetTcpBinding(), "net.tcp://localhost:8082/evals");
 
+            //Check App.Config to know how to configure the endpoint in Config File
             try
             {
                 host.Open();
